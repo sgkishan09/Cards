@@ -18,14 +18,14 @@ public class DiamondGame {
 	Deck deck;
 	List<Card> cards;
 
-	public DiamondGame(int size, List<Player> player) throws Exception {
+	public DiamondGame(int size, List<Player> players) throws Exception {
 		this.size = size;
 		this.players = players;
 		deck = new Deck(1, PackWithoutJoker.class);
-		diamonds = deck.pickSuit("DIAMOND");
-		Collections.shuffle(diamonds);
+		cards = deck.pickSuit("DIAMOND");
+		Collections.shuffle(cards);
 		for (Player player : players)
-			player.addCards(deck.getCardsInSuit());
+			player.addCards(deck.pickNextCardsInSuit());
 
 	}
 
@@ -52,17 +52,21 @@ public class DiamondGame {
 		double score = (cardOnTop.getFaceValue()) / bids.stream().filter(p -> p.equals(winningBid)).count();
 		for (int i = 0; i < bids.size(); i++) {
 			if (winningBid.equals(bids.get(i)))
-				players.get(i).feedback(score, cardOnTop, bids);
+				players.get(i).feedbackOfCurrentBid(score, cardOnTop, bids);
 		}
 	}
 
-	public List<Player> winner() {
+	public Double getMaxScore() {
 		double maxScore = Double.MIN_VALUE;
 		for (Player player : players) {
 			if (maxScore < player.getScore())
 				maxScore = player.getScore();
 		}
-		return players.stream().forEach(p -> p.getScore() == maxScore).collect(Collectors.toList());
+		return maxScore;
+	}
+
+	public List<Player> winner() {
+		return players.stream().filter(p -> p.getScore().equals(getMaxScore())).collect(Collectors.toList());
 	}
 
 	public List<Player> play() {
