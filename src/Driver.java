@@ -3,25 +3,43 @@ import java.util.Collections;
 import entities.Card;
 import entities.Deck;
 import pack.PackWithJoker;
+import pack.PackWithoutJoker;
 
 public class Driver {
 	public static void main(String[] args) {
-		debug();
+		try {
+			debugPokerHand();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void debug() {
 		testDeck();
 	}
 
-	public static void testHand() {
+	public static void runAssessPoker() throws Exception {
+		Deck deck = new Deck(1, PackWithoutJoker.class);
+		PokerHand hand = new PokerHand(deck.pick(2));
+		PokerHand table = new PokerHand(deck.pick(3));
+		System.out.println(hand);
+		System.out.println(table);
+		System.out.println(hand.assess(table));
+	}
+
+	public static void debugPokerHand() {
 		PokerHand hand = new PokerHand(2);
-		hand.addCard(new Card("10", "SPADE"));
-		hand.addCard(new Card("10", "DIAMOND"));
+		hand.addCard(new Card("A", "SPADE"));
+		hand.addCard(new Card("2", "SPADE"));
 		PokerHand table = new PokerHand(3);
-		table.addCard(new Card("A", "SPADE"));
-		table.addCard(new Card("Q", "HEART"));
-		table.addCard(new Card("Q", "CLUB"));
-		assert hand.assess(table).equals("Two Pair");
+		table.addCard(new Card("3", "SPADE"));
+		table.addCard(new Card("4", "SPADE"));
+		table.addCard(new Card("5", "SPADE"));
+		table.addCard(new Card("5", "CLUB"));
+		System.out.println(hand);
+		System.out.println(table);
+		System.out.println("------------------------");
+		System.out.println(hand.assess(table));
 	}
 
 	public static void testDeck() {

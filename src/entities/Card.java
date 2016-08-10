@@ -29,7 +29,7 @@ public class Card implements Comparable {
 	}
 
 	public String toString() {
-		return "[" + face + " " + suit + " " + "]\n";
+		return "[" + face + " " + suit + " " + "]";
 	}
 
 	public int hashCode() {

@@ -51,6 +51,13 @@ public class Deck extends Pack {
 		return this.cards.toString();
 	}
 
+	public List<Card> pick(int n) {
+		List<Card> cards = new ArrayList<Card>();
+		while (n-- > 0)
+			cards.add(draw());
+		return cards;
+	}
+
 	public Card draw() {
 		Card card = null;
 		if (!isEmpty()) {

@@ -11,7 +11,7 @@ public class PokerHand extends Hand {
 
 	private boolean isRoyalFlush() {
 		Card card = this.cards.get(0);
-		return isStraightFlush() && this.cards.contains(new Card("A", card.suit));
+		return isStraightFlush() && this.cards.contains(new Card("K", card.suit));
 	}
 
 	private boolean isStraightFlush() {
@@ -32,13 +32,35 @@ public class PokerHand extends Hand {
 		return false;
 	}
 
-	private boolean isStraight() {
+	private boolean isStraight(int valid) {
 		List<Card> tempCards = this.cards;
-		Collections.sort(tempCards);
-		for (int i = 0; i < tempCards.size() - 1; i++)
-			if (Math.abs(tempCards.get(i).hashCode() - tempCards.get(i + 1).hashCode()) != 1)
-				return false;
-		return true;
+		boolean flag = true;
+		int count = 0;
+		Collections.sort(tempCards, new CardComparatorByValue());
+		System.out.println(tempCards);
+		for (int i = 0; i < tempCards.size() - 1; i++) {
+			int cardFace1 = Card.FACES.indexOf(tempCards.get(i).face);
+			int cardFace2 = Card.FACES.indexOf(tempCards.get(i + 1).face);
+			int difference = Math.abs(cardFace1 - cardFace2);
+			if (difference == 1) {
+				count++;
+			} else if (cardFace2 == Card.FACES.indexOf("A") && tempCards.get(0).face.equals("2")) {
+				tempCards.remove(i + 1);
+				System.out.println("------------");
+				return new PokerHand(tempCards).isStraight(3);
+			} else {
+				tempCards.remove(i);
+				PokerHand tempHand = new PokerHand(tempCards);
+				return tempHand.isStraight(valid);
+			}
+
+		}
+		return count == valid;
+	}
+
+	public boolean isStraight() {
+		boolean result = isStraight(4);
+		return result;
 	}
 
 	private boolean isFlush() {
