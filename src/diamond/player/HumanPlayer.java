@@ -1,5 +1,5 @@
 package diamond.player;
 
-public class HumanPlayer {
+public class HumanPlayer implements Player {
 
 }
