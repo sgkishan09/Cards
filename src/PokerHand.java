@@ -1,6 +1,6 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import entities.Card;
@@ -33,7 +33,8 @@ public class PokerHand extends Hand {
 	}
 
 	private boolean isStraight(int valid) {
-		List<Card> tempCards = this.cards;
+		List<Card> tempCards = new ArrayList<>();
+		tempCards.addAll(this.cards);
 		boolean flag = true;
 		int count = 0;
 		Collections.sort(tempCards, new CardComparatorByValue());
@@ -53,8 +54,8 @@ public class PokerHand extends Hand {
 				PokerHand tempHand = new PokerHand(tempCards);
 				return tempHand.isStraight(valid);
 			}
-
 		}
+		System.out.println(count + "\t" + valid);
 		return count == valid;
 	}
 

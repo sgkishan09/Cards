@@ -30,12 +30,11 @@ public class Driver {
 	public static void debugPokerHand() {
 		PokerHand hand = new PokerHand(2);
 		hand.addCard(new Card("A", "SPADE"));
-		hand.addCard(new Card("2", "SPADE"));
+		hand.addCard(new Card("K", "SPADE"));
 		PokerHand table = new PokerHand(3);
-		table.addCard(new Card("3", "SPADE"));
-		table.addCard(new Card("4", "SPADE"));
-		table.addCard(new Card("5", "SPADE"));
-		table.addCard(new Card("5", "CLUB"));
+		table.addCard(new Card("Q", "SPADE"));
+		table.addCard(new Card("J", "SPADE"));
+		table.addCard(new Card("10", "SPADE"));
 		System.out.println(hand);
 		System.out.println(table);
 		System.out.println("------------------------");
