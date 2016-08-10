@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import comparators.CardComparatorBySuit;
 import pack.Pack;
 import pack.PackWithoutJoker;
 
-public class Deck extends Pack {
+public class Deck {
 	public List<Card> cards;
 
 	public Deck() {
@@ -21,7 +22,7 @@ public class Deck extends Pack {
 		this.shuffle();
 	}
 
-	public void addPackToDeck(int count, Class packType) throws Exception {
+	public void addPackToDeck(int count, Class<? extends Pack> packType) throws Exception {
 		for (int i = 0; i < count; i++) {
 			Pack packInstance = (Pack) packType.getConstructor(null).newInstance();
 			cards.addAll(packInstance.cards);
@@ -44,7 +45,7 @@ public class Deck extends Pack {
 	}
 
 	public void sort() {
-		Collections.sort(this.cards);
+		Collections.sort(this.cards, new CardComparatorBySuit());
 	}
 
 	public String toString() {

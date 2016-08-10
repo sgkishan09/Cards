@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class Card implements Comparable {
-	public static List<String> FACES;
-	public static List<String> SUITS;
+public class Card {
+	public static List<String> FACE_NAMES;
+	public static List<String> SUIT_NAMES;
 	static {
-		FACES = new ArrayList<>();
+		FACE_NAMES = new ArrayList<>();
 		for (int i = 2; i <= 10; i++)
-			FACES.add(Integer.toString(i));
-		FACES.addAll(Arrays.asList("JQKA".split("")));
+			FACE_NAMES.add(Integer.toString(i));
+		FACE_NAMES.addAll(Arrays.asList("JQKA".split("")));
 		String[] suits = { "SPADE", "HEART", "CLUB", "DIAMOND" };
-		SUITS = Arrays.asList(suits);
+		SUIT_NAMES = Arrays.asList(suits);
 	}
 	public String face, suit;
 
@@ -33,7 +33,7 @@ public class Card implements Comparable {
 	}
 
 	public int hashCode() {
-		int card = (SUITS.indexOf(suit) * FACES.size()) + FACES.indexOf(face);
+		int card = (SUIT_NAMES.indexOf(suit) * FACE_NAMES.size()) + FACE_NAMES.indexOf(face);
 		return card;
 	}
 
@@ -42,11 +42,4 @@ public class Card implements Comparable {
 		return card.face.equals(face) && card.suit.equals(suit);
 	}
 
-	@Override
-	public int compareTo(Object arg0) {
-		Card c2 = (Card) arg0;
-		if (this.hashCode() > c2.hashCode())
-			return 1;
-		return -1;
-	}
 }

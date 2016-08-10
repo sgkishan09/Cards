@@ -1,5 +1,6 @@
 import java.util.Collections;
 
+import comparators.CardComparatorByValue;
 import entities.Card;
 import entities.Deck;
 import pack.PackWithJoker;
@@ -32,8 +33,8 @@ public class Driver {
 		hand.addCard(new Card("A", "SPADE"));
 		hand.addCard(new Card("K", "SPADE"));
 		PokerHand table = new PokerHand(3);
-		table.addCard(new Card("Q", "SPADE"));
 		table.addCard(new Card("J", "SPADE"));
+		table.addCard(new Card("Q", "SPADE"));
 		table.addCard(new Card("10", "SPADE"));
 		System.out.println(hand);
 		System.out.println(table);
@@ -44,6 +45,7 @@ public class Driver {
 	public static void testDeck() {
 		try {
 			Deck deck = new Deck(1, PackWithJoker.class);
+
 			deck.sort();
 			Collections.sort(deck.cards, new CardComparatorByValue());
 			System.out.println(deck);

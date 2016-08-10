@@ -3,15 +3,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import comparators.CardComparatorByValue;
 import entities.Card;
 
 public class PokerHand extends Hand {
-	static {
-	}
 
 	private boolean isRoyalFlush() {
 		Card card = this.cards.get(0);
-		return isStraightFlush() && this.cards.contains(new Card("K", card.suit));
+		return isStraightFlush() && this.cards.get(this.cards.size() - 1).face.equals("A");
 	}
 
 	private boolean isStraightFlush() {
@@ -38,24 +37,18 @@ public class PokerHand extends Hand {
 		boolean flag = true;
 		int count = 0;
 		Collections.sort(tempCards, new CardComparatorByValue());
-		System.out.println(tempCards);
 		for (int i = 0; i < tempCards.size() - 1; i++) {
-			int cardFace1 = Card.FACES.indexOf(tempCards.get(i).face);
-			int cardFace2 = Card.FACES.indexOf(tempCards.get(i + 1).face);
+			int cardFace1 = Card.FACE_NAMES.indexOf(tempCards.get(i).face);
+			int cardFace2 = Card.FACE_NAMES.indexOf(tempCards.get(i + 1).face);
 			int difference = Math.abs(cardFace1 - cardFace2);
 			if (difference == 1) {
 				count++;
-			} else if (cardFace2 == Card.FACES.indexOf("A") && tempCards.get(0).face.equals("2")) {
+			} else if (cardFace2 == Card.FACE_NAMES.indexOf("A") && tempCards.get(0).face.equals("2")) {
 				tempCards.remove(i + 1);
-				System.out.println("------------");
 				return new PokerHand(tempCards).isStraight(3);
-			} else {
-				tempCards.remove(i);
-				PokerHand tempHand = new PokerHand(tempCards);
-				return tempHand.isStraight(valid);
+
 			}
 		}
-		System.out.println(count + "\t" + valid);
 		return count == valid;
 	}
 
@@ -108,14 +101,18 @@ public class PokerHand extends Hand {
 	public String assess(Hand table) {
 		PokerHand temp = new PokerHand(table.cards);
 		temp.cards.addAll(this.cards);
-		return temp.getScore();
+		return temp.classify();
 	}
 
 	public String toString() {
 		return this.cards.toString();
 	}
 
-	public String getScore() {
+	public boolean isThreeOfAKind() {
+		return isNOfAKind(3);
+	}
+
+	public String classify() {
 		String out = "";
 		if (isRoyalFlush())
 			out = "Royal Flush";
@@ -129,6 +126,8 @@ public class PokerHand extends Hand {
 			out = "Flush";
 		else if (isStraight())
 			out = "Straight";
+		else if (isThreeOfAKind())
+			out = "Three of a Kind";
 		else if (isTwoPair())
 			out = "Two Pair";
 		else if (isOnePair())

@@ -1,3 +1,4 @@
+package comparators;
 import java.util.Comparator;
 
 import entities.Card;
