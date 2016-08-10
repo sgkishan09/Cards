@@ -1,14 +1,20 @@
 package diamond.player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.Card;
 
 public abstract class Player {
 	String name;
-	String suit;
 	public List<Card> cards;
-	private Double score;
+	Double score;
+
+	Player() {
+		name = "";
+		cards = new ArrayList<>();
+		score = 0.0;
+	}
 
 	public void addCards(List<Card> cards) {
 		this.cards.addAll(cards);
@@ -22,8 +28,13 @@ public abstract class Player {
 		cards.remove(c);
 	}
 
-	public void setSuit(String suit) {
-		this.suit = suit;
+	void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return this.name + " " + String.format("%.2f", this.score);
 	}
 
 	abstract public Card bid(Card cardOnTop);

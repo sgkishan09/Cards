@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import game.CardComparatorBySuit;
 import pack.Pack;
 import pack.PackWithoutJoker;
 
@@ -46,7 +45,7 @@ public class Deck extends Pack {
 	}
 
 	public void sort() {
-		Collections.sort(this.cards, new CardComparatorBySuit());
+		Collections.sort(this.cards, new comparators.CardComparatorBySuit());
 	}
 
 	public String toString() {

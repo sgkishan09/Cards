@@ -18,8 +18,8 @@ public class Card {
 	}
 	public String face, suit;
 
-	public double getFaceValue() {
-		return (double) Card.FACE_NAMES.indexOf(this.face);
+	public Double getFaceValue() {
+		return new Double(Card.FACE_NAMES.indexOf(this.face) + 2);
 	}
 
 	public Card() {

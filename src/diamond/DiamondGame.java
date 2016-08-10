@@ -23,10 +23,12 @@ public class DiamondGame {
 		this.players = players;
 		deck = new Deck(1, PackWithoutJoker.class);
 		cards = deck.pickSuit("DIAMOND");
+		System.out.println(cards);
 		Collections.shuffle(cards);
-		for (Player player : players)
+		for (Player player : players) {
 			player.addCards(deck.pickNextCardsInSuit());
-
+			System.out.println(player);
+		}
 	}
 
 	public Card nextCardOnTop() {
@@ -43,17 +45,23 @@ public class DiamondGame {
 		return maxBid;
 	}
 
-	public void turn() {
+	public void nextTurn() {
 		List<Card> bids = new ArrayList<Card>();
 		Card cardOnTop = this.cards.get(0);
+		this.cards.remove(cardOnTop);
 		for (Player player : players)
 			bids.add(player.bid(cardOnTop));
+		System.out.println(cardOnTop + "\t" + bids);
 		Card winningBid = maxBid(bids);
-		double score = (cardOnTop.getFaceValue()) / bids.stream().filter(p -> p.equals(winningBid)).count();
+		int count = (int) bids.stream().filter(p -> p.getFaceValue().equals(winningBid.getFaceValue())).count();
+		double winScore = (cardOnTop.getFaceValue()) / count;
 		for (int i = 0; i < bids.size(); i++) {
-			if (winningBid.equals(bids.get(i)))
-				players.get(i).feedbackOfCurrentBid(score, cardOnTop, bids);
+			if (winningBid.getFaceValue().equals(bids.get(i).getFaceValue()))
+				players.get(i).feedbackOfCurrentBid(winScore, cardOnTop, bids);
+			else
+				players.get(i).feedbackOfCurrentBid(0.0, cardOnTop, bids);
 		}
+		System.out.println(players);
 	}
 
 	public Double getMaxScore() {
@@ -71,7 +79,7 @@ public class DiamondGame {
 
 	public List<Player> play() {
 		while (!cards.isEmpty()) {
-			turn();
+			nextTurn();
 		}
 		return winner();
 	}

@@ -1,24 +1,33 @@
 package diamond.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import entities.Card;
 
 public class HumanPlayer extends Player {
+	public HumanPlayer() {
+		super();
+		setName("Player");
+	}
+
+	public HumanPlayer(String name) {
+		super();
+		setName(name);
+		
+	}
+
 	@Override
 	public Card bid(Card cardOnTop) {
 		String suit, face;
 		Card toBid;
 		System.out.println("Card on Top" + cardOnTop);
 		Scanner in = new Scanner(System.in);
-		System.out.println("-----List of cards available-----");
-		System.out.println(cards);
-		System.out.println("Choose card to bid:");
-		System.out.println("Suit:");
-		suit = in.nextLine().toUpperCase();
-		System.out.println("Face:");
+		System.out.println(this + "\t" + cards);
+		System.out.println("Enter Card:");
 		face = in.nextLine().toUpperCase();
+		suit = this.cards.get(0).suit;
 		toBid = new Card(face, suit);
 		this.removeCard(toBid);
 		return toBid;
@@ -26,7 +35,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void feedbackOfCurrentBid(Double score, Card diamond, List<Card> c) {
-		System.out.println("Score: " + score + "\nDiamond Card: " + diamond + "\nCards Played: " + c);
+		this.score += score;
 	}
 
 }
