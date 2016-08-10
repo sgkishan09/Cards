@@ -5,7 +5,7 @@ import java.util.*;
 
 public class HumanPlayer extends Player{
 	private ArrayList<Card> cards;
-	private int points;
+	private Double score;
 
 	public Card bid() {
 		String suit, face;
@@ -29,6 +29,10 @@ public class HumanPlayer extends Player{
 
 	public void feedbackOfCurrentBid(Double score, Card diamond, Collection c){
 		System.out.println("Score: "+ score + "\nDiamond Card: "+ diamond +"\nCards Played: "+ c);
+	}
+	
+	public Double getScore() {
+		return this.score;
 	}
 
 }

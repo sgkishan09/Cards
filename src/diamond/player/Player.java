@@ -5,7 +5,7 @@ import java.util.Collection;
 import entities.Card;
 
 public abstract class Player {
-
+		
 	public Card bid(){
 		return null;
 	};
