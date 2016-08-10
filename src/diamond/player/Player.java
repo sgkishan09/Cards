@@ -9,6 +9,13 @@ public abstract class Player {
 	String name;
 	public List<Card> cards;
 	Double score;
+	int myPosition;
+	int total;
+
+	public void setGameParams(int position, int total) {
+		this.myPosition = position;
+		this.total = total;
+	}
 
 	Player() {
 		name = "";

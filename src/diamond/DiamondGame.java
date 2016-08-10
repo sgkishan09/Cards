@@ -25,7 +25,9 @@ public class DiamondGame {
 		cards = deck.pickSuit("DIAMOND");
 		System.out.println(cards);
 		Collections.shuffle(cards);
+		int j = 0;
 		for (Player player : players) {
+			player.setGameParams(j, size);
 			player.addCards(deck.pickNextCardsInSuit());
 			System.out.println(player);
 		}
