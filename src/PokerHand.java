@@ -40,17 +40,10 @@ public class PokerHand extends Hand {
 				return false;
 		return true;
 	}
-<<<<<<< HEAD
-	private boolean isFlush() {
-		int count = (int) cards.stream().filter(p -> p.suit.equals(cards.get(0).suit)).count();
-		return count == 5;
-
-=======
 
 	private boolean isFlush() {
 		int count = (int) cards.stream().filter(p -> p.suit.equals(cards.get(0).suit)).count();
 		return count == 5;
->>>>>>> 8284c7f328e0048bb38238b8634b279ab8293857
 	}
 
 	private boolean isFullHouse() {

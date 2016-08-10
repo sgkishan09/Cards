@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import pack.Pack;
-import pack.PackWithJoker;
+import pack.PackWithoutJoker;
 
 public class Deck extends Pack {
-	List<Card> cards;
+	public List<Card> cards;
 
 	public Deck() {
-		Pack pack = new PackWithJoker();
+		Pack pack = new PackWithoutJoker();
 		cards.addAll(pack.cards);
 	}
 

@@ -6,13 +6,11 @@ import pack.PackWithJoker;
 
 public class Driver {
 	public static void main(String[] args) {
-		 debug();
+		debug();
 	}
 
 	public static void debug() {
 		testDeck();
-		testCard();
-		testHand();
 	}
 
 	public static void testHand() {
@@ -29,6 +27,9 @@ public class Driver {
 	public static void testDeck() {
 		try {
 			Deck deck = new Deck(1, PackWithJoker.class);
+			deck.sort();
+			Collections.sort(deck.cards, new CardComparatorByValue());
+			System.out.println(deck);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

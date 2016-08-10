@@ -8,14 +8,12 @@ import java.util.List;
 public class Card implements Comparable {
 	public static List<String> FACES;
 	public static List<String> SUITS;
-	public final static Card JOKER = new Card("Joker", "JOKER");
 	static {
 		FACES = new ArrayList<>();
 		for (int i = 2; i <= 10; i++)
-			FACES.add(i + "");
+			FACES.add(Integer.toString(i));
 		FACES.addAll(Arrays.asList("JQKA".split("")));
 		String[] suits = { "SPADE", "HEART", "CLUB", "DIAMOND" };
-
 		SUITS = Arrays.asList(suits);
 	}
 	public String face, suit;
@@ -31,7 +29,7 @@ public class Card implements Comparable {
 	}
 
 	public String toString() {
-		return "[" + face + " " + suit + " " + this.hashCode() + "]\n";
+		return "[" + face + " " + suit + " " + "]\n";
 	}
 
 	public int hashCode() {

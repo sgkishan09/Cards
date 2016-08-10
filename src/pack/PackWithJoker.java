@@ -9,13 +9,13 @@ public class PackWithJoker extends Pack {
 		this(2);
 	}
 
-	public PackWithJoker(int n) {
+	public PackWithJoker(int size) {
 		cards = new ArrayList<>();
 		for (String suit : Card.SUITS)
 			for (String face : Card.FACES)
 				cards.add(new Card(face, suit));
-		while (n-- > 0)
-			this.cards.add(Card.JOKER);
+		while (size-- > 0)
+			this.cards.add(Pack.JOKER);
 	}
 
 }
